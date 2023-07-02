@@ -1,6 +1,8 @@
 package com.example.jettrivia.di
 
+import android.util.Log
 import com.example.jettrivia.network.QuestionApi
+import com.example.jettrivia.repository.QuestionsRepository
 import com.example.jettrivia.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -15,7 +17,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 object AppModule {
     @Singleton
     @Provides
+    fun provideQuestionRepository(api: QuestionApi) = QuestionsRepository(api)
+
+    @Singleton
+    @Provides
     fun provideQuestionApi(): QuestionApi {
+        Log.d("API", "provideQuestionApi: ")
         return Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(
             GsonConverterFactory.create()
         ).build().create(QuestionApi::class.java)

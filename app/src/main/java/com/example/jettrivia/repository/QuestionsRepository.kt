@@ -13,6 +13,8 @@ class QuestionsRepository @Inject constructor(private val api: QuestionApi) {
         try {
             dataOrException.loading = true
             dataOrException.data = api.getAllQuestions()
+            Log.d("TAG", "getAllQuestions: ")
+
             if (dataOrException.data.toString().isNotEmpty()) dataOrException.loading = false
         } catch (exception: Exception) {
             dataOrException.e = exception
